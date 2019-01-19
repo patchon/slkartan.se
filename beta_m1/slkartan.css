@@ -61,7 +61,6 @@
 			font-size:20px;
 			font-weight:bold;
 			border-bottom: solid 1px #555;
-			border-top: solid 1px #555;
 		}
 			.side h2 img {
 				width:45px;
@@ -95,6 +94,10 @@
 			.side .line.inactive:hover div {
     			opacity:0.8;
 			}
+			
+			.side .line.inactive figure {
+			height:6px;
+			}
 
 
 		.side .line div {
@@ -108,11 +111,18 @@
 			.side .line figure {
 				height:10px;
 				flex-grow:1;
-				margin:0 5px 0 -5px;
+				margin:0 8px 0 -5px;
 				border-radius:2px;
 				border-top-left-radius:0;
 				border-bottom-left-radius:0;
 			}
+				/*pink */
+				.side .line.pink figure {
+					display:none;
+				}
+				.side .line.pink div {
+					width:100%;
+				}
 			.side .line label {
 				padding:2px 8px;
 				margin:2px 5px 2px 0;
@@ -167,6 +177,7 @@
 @media only screen and (max-width: 900px) {
 	.wrapper {
 		display:block;
+		min-width:320px;
 	}
 	.side,
 	.content {
