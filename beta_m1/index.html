@@ -1,0 +1,130 @@
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-132320676-1"></script>
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+
+  <script>
+	  window.dataLayer = window.dataLayer || [];
+	  function gtag(){dataLayer.push(arguments);}
+	  gtag('js', new Date());
+
+	  gtag('config', 'UA-132320676-1');
+	</script>
+
+<link href="font.css" rel="stylesheet">
+<link href="slkartan.css" rel="stylesheet">
+
+
+</head>
+
+<body>
+
+<div class="wrapper">
+	<div class="side">
+		<header>
+			<h1>Stockholm<strong>kartan</strong></h1>
+			<div><input type="text"></div>
+		</header>
+
+		<div class="type">
+			<h2>
+				<img src="img/icon.gif">
+				<span>
+					Tunnelbana
+					<strong>Metro</strong>
+				</span>
+			</h2>
+			<div class="line blue" data-color="blue">
+				<div>
+					<label>10</label>
+					<label>11</label>
+					<figure></figure>
+				</div>
+				<p>Blå linjen <strong>Blue Line</strong></p>
+			</div>
+			<div class="line red" data-color="red">
+				<div>
+					<label>13</label>
+					<label>14</label>
+					<figure></figure>
+				</div>
+				<p>Röda linjen <strong>Red Line</strong></p>
+			</div>
+			<div class="line green" data-color="green">
+				<div>
+					<label>17</label>
+					<label>18</label>
+					<label>19</label>
+					<figure></figure>
+				</div>
+				<p>Gröna linjen <strong>Green Line</strong></p>
+			</div>
+		</div>
+
+		<div class="type">
+			<h2>
+				<img src="img/icon.gif">
+				<span>
+					Pendeltåg
+					<strong>Commuter rail</strong>
+				</span>
+			</h2>
+			<div class="line pink" data-color="pink">
+				<div>
+					<label>40</label>
+					<label>41</label>
+					<label>42</label>
+					<label>43</label>
+					<label>44</label>
+					<label>45</label>
+					<label>48</label>
+					<figure></figure>
+				</div>
+				<p>Pendeltåg <strong>Commuter rail</strong></p>
+			</div>
+		</div>
+	</div>
+
+
+	<div class="content">
+
+		<div class="map">
+			<img class="slmap all" src="map/slmap_all_line.png" style="display:block">
+			<img class="slmap blue" src="map/slmap_blue_line.png" style="display:none">
+			<img class="slmap green" src="map/slmap_green_line.png" style="display:none">
+			<img class="slmap red"  src="map/slmap_red_line.png" style="display:none">
+			<img class="slmap pink"  src="map/slmap_pink_line.png" style="display:none">
+		</div>
+	</div>
+</div>
+
+
+</div>
+
+
+  <script>
+  
+  	function toggleLine(line) {
+  		if( $(".slmap."+line).is(":hidden") ) {
+	  		$(".slmap").hide();
+	  		$(".slmap."+line).show();
+	  		$(".line").addClass("inactive").filter("."+line).removeClass("inactive");
+  		} else {
+  			$(".slmap").hide().filter(".all").show();
+  			$(".line").removeClass("inactive");
+  		}
+  	}
+  	
+  	
+  	$(".line").on("click", function() {
+  		lineColor = $(this).data("color");
+  		toggleLine(lineColor);
+  	});
+ 
+
+  </script>
+</body>
+</html>
