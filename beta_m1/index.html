@@ -155,8 +155,10 @@
 
         // Request position,
         if (mock){
+          console.log("mock data used");
           handle_position(coords_mock_hogdalen);
         }else{
+          console.log("no mock");
           getlatlng();
         }
       };
@@ -164,10 +166,34 @@
       // Function that will ask the browser for the position.
       function getlatlng() {
         if (navigator.geolocation) {
-          navigator.geolocation.getCurrentPosition(handle_position);
+          navigator.geolocation.getCurrentPosition(handle_position,
+                                                   handle_position_error);
         }else{
           console.log("Browser doesn't support geolocation.");
         }
+      }
+
+      // Function that will handle error from the geolocation api,
+      function handle_position_error(error) {
+        console.log(error);
+        var err_str = "Unhandled error from geolocation api."
+
+        switch(error.code) {
+          case error.PERMISSION_DENIED:
+            err_str = "User denied the request for geolocation."
+            break;
+          case error.POSITION_UNAVAILABLE:
+            err_str = "Location information is unavailable."
+            break;
+          case error.TIMEOUT:
+            err_str = "The request to get user location timed out."
+            break;
+          case error.UNKNOWN_ERROR:
+            err_str = "An unknown error occurred."
+            break;
+        }
+
+        $("#posfound").html('<li>'+err_str+'</li>');
       }
 
       // Function that will handle long, lats given by the browser.
