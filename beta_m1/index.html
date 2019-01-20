@@ -203,9 +203,15 @@
 
         $("#posfound").html('');
 
-        $.each( results, function( key, value ) {
-          $("#posfound").append('<li>'+value.name+'</li>');
-        });
+        if (status == "OK"){
+          $.each( results, function( key, value ) {
+            $("#posfound").append('<li>'+value.name+'</li>');
+          });
+        }else if (status == "ZERO_RESULTS"){
+          $("#posfound").append('<li>No subway within 500 meters found</li>');
+        }else{
+          $("#posfound").append('<li>Unhandled error.</li>');
+        }
       }
     </script>
   </body>
