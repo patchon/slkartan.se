@@ -143,7 +143,7 @@
       function init_geo() {
 
         // Debug, mock data,
-        var mock=1;
+        var mock=0;
         var coords_mock_hogdalen = {};
             coords_mock_hogdalen['coords'] = {
               latitude  : 59.264973,
@@ -200,6 +200,8 @@
       function callback_subway_station(results, status) {
         console.log(results)
         console.log(status)
+
+        $("#posfound").html('');
 
         $.each( results, function( key, value ) {
           $("#posfound").append('<li>'+value.name+'</li>');
