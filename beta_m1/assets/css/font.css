@@ -1,7 +1,7 @@
 @font-face {
     font-family: 'sl_gothic_text';
-    src: url("fonts/SLGothic/slgothictext-regular-webfont.eot");
-    src: url("fonts/SLGothic/slgothictext-regular-webfont.eot?#iefix") format("embedded-opentype"),url("fonts/SLGothic/slgothictext-regular-webfont.woff") format("woff"),url("fonts/SLGothic/slgothictext-regular-webfont.ttf") format("truetype"),url("../fonts/SLGothic/slgothictext-regular-webfont.svg#sl_gothic_textregular") format("svg");
+    src: url("../fonts/SLGothic/slgothictext-regular-webfont.eot");
+    src: url("../fonts/SLGothic/slgothictext-regular-webfont.eot?#iefix") format("embedded-opentype"),url("../fonts/SLGothic/slgothictext-regular-webfont.woff") format("woff"),url("../fonts/SLGothic/slgothictext-regular-webfont.ttf") format("truetype"),url("../fonts/SLGothic/slgothictext-regular-webfont.svg#sl_gothic_textregular") format("svg");
     font-weight: normal;
     font-style: normal
 }

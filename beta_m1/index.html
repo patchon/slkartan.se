@@ -1,7 +1,10 @@
 <html>
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-132320676-1"></script>
+    <script src="https://www.googletagmanager.com/gtag/js?id=UA-132320676-1" async></script>
+    <!-- Will replace this key when I have something working -->
+    <!-- Until then, yes they key will be visible here -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAFpzssk3-zq2I4-mwmicEeyXna2hVp4wE&libraries=places"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
@@ -19,7 +22,13 @@
       <div class="side">
         <header>
           <h1>SL<strong>KARTAN</strong></h1>
+          <div class="getpos"> Get closest subway </div>
           <div><input type="text"></div>
+          <!-- Testing google maps api -->
+          <div>
+            <ol id="posfound"></ol>
+          </div>
+
         </header>
 
         <!-- Header Tunnelbana-->
@@ -105,6 +114,8 @@
       </div>
     </div>
 
+    <div id="map_dummy" style="display:none"></div>
+
     <script>
       function toggleLine(line) {
         if( $(".slmap."+line).is(":hidden") ) {
@@ -121,6 +132,79 @@
         lineColor = $(this).data("color");
         toggleLine(lineColor);
       });
+
+
+      $(".getpos").on("click", function() {
+        init_geo();
+      });
+
+
+      // Function to initialize geo,
+      function init_geo() {
+
+        // Debug, mock data,
+        var mock=1;
+        var coords_mock_hogdalen = {};
+            coords_mock_hogdalen['coords'] = {
+              latitude  : 59.264973,
+              longitude : 18.036123
+            };
+
+        // Our actual position,
+        var current_location;
+
+        // Request position,
+        if (mock){
+          handle_position(coords_mock_hogdalen);
+        }else{
+          getlatlng();
+        }
+      };
+
+      // Function that will ask the browser for the position.
+      function getlatlng() {
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(handle_position);
+        }else{
+          console.log("Browser doesn't support geolocation.");
+        }
+      }
+
+      // Function that will handle long, lats given by the browser.
+      function handle_position(position) {
+        console.log("Input location data : ");
+        console.log(position);
+
+        current_location = {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude
+        };
+
+        // Load map over sthlm
+        var map = new google.maps.Map(document.getElementById('map_dummy'), {
+          center: current_location,
+        });
+
+        // Use places to get nearest subway station. The callback
+        // will handle the result,
+        var service = new google.maps.places.PlacesService(map);
+            service.nearbySearch({
+              location  : current_location,
+              radius    : 500,
+              type      : ['subway_station']
+            }, callback_subway_station);
+      }
+
+
+      // Callback function that will handle the data from the google maps api
+      function callback_subway_station(results, status) {
+        console.log(results)
+        console.log(status)
+
+        $.each( results, function( key, value ) {
+          $("#posfound").append('<li>'+value.name+'</li>');
+        });
+      }
     </script>
   </body>
 </html>

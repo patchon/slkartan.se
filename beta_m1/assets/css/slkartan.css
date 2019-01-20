@@ -40,6 +40,14 @@
         opacity:1;
       }
 
+  .getpos {
+    float: right;
+  }
+
+  #posfound {
+    font-size: 10px;
+  }
+
   .wrapper {
     display:flex;
   }
