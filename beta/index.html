@@ -23,7 +23,49 @@
         <header>
           <h1>SL<strong>KARTAN</strong></h1><div class="version">v 0.1a</div>
           <!--<div class="getpos"> Get closest subway </div>-->
-          <div><input type="text"></div>
+
+          <!-- Testing dropdown alternatives -->
+          <div id="dropdowndiv">
+
+            <input type="text" placeholder="Vart vill du åka ?" id="dropdown" list="browsers" onfocusout="hidelist()" onfocus="filterlist()" onkeyup="filterlist()">
+            <div class="dropdowncontent" id="dropdowncontent">
+
+              <!-- Centralen, handle separetely -->
+              <a href="#about"><div class="listitem"><label class="red">666</label></div><span class="listtext">T-Centralen<span></a>
+
+              <!-- 10,11,17,18,19 -->
+              <a href="#about"><div class="listitem"><label class="blue">10</label><label class="blue">11</label><label class="green">17</label><label class="green">18</label><label class="green">19</label></div> <span class="listtext">Fridhemsplan<span></a>
+
+              <!-- 10,11 -->
+              <a href="#about"><div class="listitem"><label class="blue">10</label><label class="blue">11</label></div><span class="listtext">Kungsträdgården<span></a>
+              <a href="#about"><div class="listitem"><label class="blue">10</label><label class="blue">11</label></div><span class="listtext">Rådhuset<span></a>
+              <a href="#about"><div class="listitem"><label class="blue">10</label><label class="blue">11</label></div><span class="listtext">Stadshagen<span></a>
+              <a href="#about"><div class="listitem"><label class="blue">10</label><label class="blue">11</label></div><span class="listtext">Västra Skogen<span></a>
+
+              <!-- 10 -->
+              <a href="#about"><div class="listitem"><label class="blue">10</label><label class="blue">11</label></div><span class="listtext">Huvudsta<span></a>
+              <a href="#about"><div class="listitem"><label class="blue">10</label><label class="blue">11</label></div><span class="listtext">Solna Strand<span></a>
+
+              <!-- 10 - 43 - 44 -->
+              <a href="#about"><div class="listitem"><label class="blue">10</label><label class="pink">43</label><label class="pink">44</label></div><span class="listtext">Sundbyberg Centrum<span></a>
+              <a href="#about"><div class="listitem"><label class="blue">10</label><label class="pink">43</label><label class="pink">44</label></div><span class="listtext">Solna Centrum<span></a>
+
+              <!-- 10 -->
+              <a href="#about"><div class="listitem"><label class="blue">10</label><label class="blue">11</label></div><span class="listtext">Duvbo<span></a>
+              <a href="#about"><div class="listitem"><label class="blue">10</label><label class="blue">11</label></div><span class="listtext">Rissne<span></a>
+              <a href="#about"><div class="listitem"><label class="blue">10</label><label class="blue">11</label></div><span class="listtext">Rinkeby<span></a>
+              <a href="#about"><div class="listitem"><label class="blue">10</label><label class="blue">11</label></div><span class="listtext">Tensta<span></a>
+              <a href="#about"><div class="listitem"><label class="blue">10</label><label class="blue">11</label></div><span class="listtext">Hjulsta<span></a>
+
+              <!-- 11 -->
+              <a href="#about"><div class="listitem"><label class="blue">11</label></div><span class="listtext">Näckrosen<span></a>
+              <a href="#about"><div class="listitem"><label class="blue">11</label></div><span class="listtext">Hallonbergen<span></a>
+              <a href="#about"><div class="listitem"><label class="blue">11</label></div><span class="listtext">Kista<span></a>
+              <a href="#about"><div class="listitem"><label class="blue">11</label></div><span class="listtext">Husby<span></a>
+              <a href="#about"><div class="listitem"><label class="blue">11</label></div><span class="listtext">Akalla<span></a>
+            </div>
+          </div>
+
           <!-- Testing google maps api -->
           <div>
             <ol id="posfound"></ol>
@@ -137,6 +179,56 @@
       $(".getpos").on("click", function() {
         init_geo();
       });
+
+
+      // Function that will filter the dropdown list based on input,
+      function filterlist(){
+
+        var input, filter, found, div, a, i, found;
+
+        // Input element and dropdown-content,
+        input = document.getElementById("dropdown");
+        dropdowncontent = document.getElementById("dropdowncontent");
+
+        // Get the input,
+        filter = input.value.toLowerCase();
+
+        // Hide content if we dont have any input,
+        if (filter == ""){
+          dropdowncontent.style.display = "none"
+          return
+        }
+
+        // Get all a's within our dropdown
+        a = dropdowncontent.getElementsByTagName("a");
+
+        // Loop all a's and match to our filter,
+        for (i = 0; i < a.length; i++) {
+          txtValue = a[i].textContent || a[i].innerText;
+          if (txtValue.toLowerCase().indexOf(filter) > -1) {
+            a[i].style.display = "";
+            found=1;
+          } else {
+            a[i].style.display = "none";
+          }
+        }
+
+        // This is just to hide the whole div, otherwise it leaves
+        // a mark on the search box
+        if (found){
+          dropdowncontent.style.display="block";
+        }else{
+          dropdowncontent.style.display="none";
+        }
+      }
+
+
+      // Function that just will hide the dropdown, called when input focus
+      // is lost,
+      function hidelist(){
+        dropdowncontent = document.getElementById("dropdowncontent");
+        dropdowncontent.style.display = "none"
+      }
 
 
       // Function to initialize geo,
