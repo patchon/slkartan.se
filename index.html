@@ -1,35 +1,244 @@
 <html>
-<head>
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
-	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-132320676-1"></script>
-	<script>
-	  window.dataLayer = window.dataLayer || [];
-	  function gtag(){dataLayer.push(arguments);}
-	  gtag('js', new Date());
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://www.googletagmanager.com/gtag/js?id=UA-132320676-1" async></script>
+    <!-- Will replace this key when I have something working -->
+    <!-- Until then, yes they key will be visible here -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAFpzssk3-zq2I4-mwmicEeyXna2hVp4wE&libraries=places"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-132320676-1');
+    </script>
 
-	  gtag('config', 'UA-132320676-1');
-	</script>
-  <style>
-    * {
-      margin  : 0;
-      padding : 0;
-      background-color:#343A40;
-    }
-    .imgbox {
-      display : grid;
-      height  : 100%;
-    }
-    .center-fit {
-      max-width  : 100%;
-      max-height : 100vh;
-      margin     : auto;
-    }
-  </style>
-</head>
+    <link href="assets/css/font.css" rel="stylesheet">
+    <link href="assets/css/slkartan.css?v=20190120" rel="stylesheet">
+  </head>
 
-<body>
-<div class="imgbox">
-    <img class="center-fit" src='karta.png'>
-</div>
-</body>
+  <body>
+    <div class="wrapper">
+      <div class="side">
+        <header>
+          <h1>SL<strong>KARTAN</strong></h1><div class="version">v 0.1a</div>
+          <!--<div class="getpos"> Get closest subway </div>-->
+          <div><input type="text"></div>
+          <!-- Testing google maps api -->
+          <div>
+            <ol id="posfound"></ol>
+          </div>
+
+        </header>
+
+        <!-- Header Tunnelbana-->
+        <div class="type">
+          <h2>
+            <img src="assets/imgs/tbana.png">
+            <span>
+              Tunnelbana
+              <strong>Metro</strong>
+            </span>
+          </h2>
+
+          <!-- Blue line -->
+          <div class="line blue" data-color="blue">
+            <div>
+              <label>10</label>
+              <label>11</label>
+              <figure></figure>
+            </div>
+            <p>Blå linjen <strong>Blue Line</strong></p>
+          </div>
+
+          <!-- Red line -->
+          <div class="line red" data-color="red">
+            <div>
+              <label>13</label>
+              <label>14</label>
+              <figure></figure>
+            </div>
+            <p>Röda linjen <strong>Red Line</strong></p>
+          </div>
+
+
+          <!-- Green line -->
+          <div class="line green" data-color="green">
+            <div>
+              <label>17</label>
+              <label>18</label>
+              <label>19</label>
+              <figure></figure>
+            </div>
+            <p>Gröna linjen <strong>Green Line</strong></p>
+          </div>
+        </div>
+
+        <!-- Header Pendel -->
+        <div class="type">
+          <h2>
+            <img src="assets/imgs/pendel.png">
+            <span>
+              Pendeltåg
+              <strong>Commuter rail</strong>
+            </span>
+          </h2>
+
+          <!-- All pendel lines -->
+          <div class="line pink" data-color="pink">
+            <div>
+              <label>40</label>
+              <label>41</label>
+              <label>42</label>
+              <label>43</label>
+              <label>44</label>
+              <label>45</label>
+              <label>48</label>
+              <figure></figure>
+            </div>
+            <!-- <p>Pendeltåg <strong>Commuter rail</strong></p>-->
+          </div>
+        </div>
+      </div>
+
+      <!-- The actual maps -->
+      <div class="content">
+        <div class="map">
+          <div class="position"></div>
+            <img class="slmap all"   src="assets/imgs/maps/slmap_all_line.png"   style="display:block">
+            <img class="slmap blue"  src="assets/imgs/maps/slmap_blue_line.png"  style="display:none">
+            <img class="slmap green" src="assets/imgs/maps/slmap_green_line.png" style="display:none">
+            <img class="slmap red"   src="assets/imgs/maps/slmap_red_line.png"   style="display:none">
+            <img class="slmap pink"  src="assets/imgs/maps/slmap_pink_line.png"  style="display:none">
+        </div>
+      </div>
+    </div>
+
+    <div id="map_dummy" style="display:none"></div>
+
+    <script>
+      function toggleLine(line) {
+        if( $(".slmap."+line).is(":hidden") ) {
+          $(".slmap").hide();
+          $(".slmap."+line).show();
+          $(".line").addClass("inactive").filter("."+line).removeClass("inactive");
+        } else {
+          $(".slmap").hide().filter(".all").show();
+          $(".line").removeClass("inactive");
+        }
+      }
+
+      $(".line").on("click", function() {
+        lineColor = $(this).data("color");
+        toggleLine(lineColor);
+      });
+
+
+      $(".getpos").on("click", function() {
+        init_geo();
+      });
+
+
+      // Function to initialize geo,
+      function init_geo() {
+
+        // Debug, mock data,
+        var mock=0;
+        var coords_mock_hogdalen = {};
+            coords_mock_hogdalen['coords'] = {
+              latitude  : 59.264973,
+              longitude : 18.036123
+            };
+
+        // Our actual position,
+        var current_location;
+
+        // Request position,
+        if (mock){
+          console.log("mock data used");
+          handle_position(coords_mock_hogdalen);
+        }else{
+          console.log("no mock");
+          getlatlng();
+        }
+      };
+
+      // Function that will ask the browser for the position.
+      function getlatlng() {
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(handle_position,
+                                                   handle_position_error);
+        }else{
+          console.log("Browser doesn't support geolocation.");
+        }
+      }
+
+      // Function that will handle error from the geolocation api,
+      function handle_position_error(error) {
+        console.log(error);
+        var err_str = "Unhandled error from geolocation api."
+
+        switch(error.code) {
+          case error.PERMISSION_DENIED:
+            err_str = "User denied the request for geolocation."
+            break;
+          case error.POSITION_UNAVAILABLE:
+            err_str = "Location information is unavailable."
+            break;
+          case error.TIMEOUT:
+            err_str = "The request to get user location timed out."
+            break;
+          case error.UNKNOWN_ERROR:
+            err_str = "An unknown error occurred."
+            break;
+        }
+
+        $("#posfound").html('<li>'+err_str+'</li>');
+      }
+
+      // Function that will handle long, lats given by the browser.
+      function handle_position(position) {
+        console.log("Input location data : ");
+        console.log(position);
+
+        current_location = {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude
+        };
+
+        // Load map over sthlm
+        var map = new google.maps.Map(document.getElementById('map_dummy'), {
+          center: current_location,
+        });
+
+        // Use places to get nearest subway station. The callback
+        // will handle the result,
+        var service = new google.maps.places.PlacesService(map);
+            service.nearbySearch({
+              location  : current_location,
+              radius    : 500,
+              type      : ['subway_station']
+            }, callback_subway_station);
+      }
+
+
+      // Callback function that will handle the data from the google maps api
+      function callback_subway_station(results, status) {
+        console.log(results)
+        console.log(status)
+
+        $("#posfound").html('');
+
+        if (status == "OK"){
+          $.each( results, function( key, value ) {
+            $("#posfound").append('<li>'+value.name+'</li>');
+          });
+        }else if (status == "ZERO_RESULTS"){
+          $("#posfound").append('<li>No subway within 500 meters found</li>');
+        }else{
+          $("#posfound").append('<li>Unhandled error.</li>');
+        }
+      }
+    </script>
+  </body>
 </html>
