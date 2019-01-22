@@ -239,23 +239,22 @@ top: 48.4%;
 
 
 /** Testing dropdown **/
-  .dropdown {
-    position: relative;
-    display: inline-block;
-  }
 
   .dropdowncontent {
     display: none;
     position: absolute;
-    background-color: #f6f6f6;
+    background-color: #eaeaea;
     min-width: 230px;
-    border: 1px solid #ddd;
     z-index: 1;
+    overflow-x: scroll;
+    border-radius:3px;
+    padding:7px;
+    border:0;
   }
 
   .dropdowncontent a {
     color: black;
-    padding: 12px 16px;
+    padding: 5px 16px 5px 16px;
     text-decoration: none;
     display: block;
   }
@@ -265,7 +264,7 @@ top: 48.4%;
   }
 
   .listtext {
-    padding-left: 10px;
+    line-height: 28px;
   }
 
   div.listitem {
@@ -283,4 +282,6 @@ top: 48.4%;
     margin:2px 5px 2px 0;
     border-radius:3px;
     font-weight:600;
+    word-spacing: 8px;
+    float: right;
   }

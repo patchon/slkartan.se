@@ -27,42 +27,78 @@
           <!-- Testing dropdown alternatives -->
           <div id="dropdowndiv">
 
-            <input type="text" placeholder="Vart vill du åka ?" id="dropdown" list="browsers" onfocusout="hidelist()" onfocus="filterlist()" onkeyup="filterlist()">
+            <input type="text" placeholder="Vart vill du åka ?" id="wheretogoinput" onfocusout="hidelist()" onfocus="filterlist()" onkeyup="filterlist()">
             <div class="dropdowncontent" id="dropdowncontent">
 
               <!-- Centralen, handle separetely -->
               <a href="#about"><div class="listitem"><label class="red">666</label></div><span class="listtext">T-Centralen<span></a>
 
-              <!-- 10,11,17,18,19 -->
-              <a href="#about"><div class="listitem"><label class="blue">10</label><label class="blue">11</label><label class="green">17</label><label class="green">18</label><label class="green">19</label></div> <span class="listtext">Fridhemsplan<span></a>
+              <!-- BLÅ -->
+              <!-- 10, 11, 17, 18, 19 -->
+              <a href="#about"><span class="listtext">Fridhemsplan</span><div class="listitem"><label class="blue">10 11</label><label class="green">17 18 19</label></div></a>
 
-              <!-- 10,11 -->
-              <a href="#about"><div class="listitem"><label class="blue">10</label><label class="blue">11</label></div><span class="listtext">Kungsträdgården<span></a>
-              <a href="#about"><div class="listitem"><label class="blue">10</label><label class="blue">11</label></div><span class="listtext">Rådhuset<span></a>
-              <a href="#about"><div class="listitem"><label class="blue">10</label><label class="blue">11</label></div><span class="listtext">Stadshagen<span></a>
-              <a href="#about"><div class="listitem"><label class="blue">10</label><label class="blue">11</label></div><span class="listtext">Västra Skogen<span></a>
-
-              <!-- 10 -->
-              <a href="#about"><div class="listitem"><label class="blue">10</label><label class="blue">11</label></div><span class="listtext">Huvudsta<span></a>
-              <a href="#about"><div class="listitem"><label class="blue">10</label><label class="blue">11</label></div><span class="listtext">Solna Strand<span></a>
-
-              <!-- 10 - 43 - 44 -->
-              <a href="#about"><div class="listitem"><label class="blue">10</label><label class="pink">43</label><label class="pink">44</label></div><span class="listtext">Sundbyberg Centrum<span></a>
-              <a href="#about"><div class="listitem"><label class="blue">10</label><label class="pink">43</label><label class="pink">44</label></div><span class="listtext">Solna Centrum<span></a>
+              <!-- 10, 11 -->
+              <a href="#about"><span class="listtext">Kungsträdgården     </span><div class="listitem"><label class="blue">10 11</label></div></a>
+              <a href="#about"><span class="listtext">Rådhuset            </span><div class="listitem"><label class="blue">10 11</label></div></a>
+              <a href="#about"><span class="listtext">Stadshagen          </span><div class="listitem"><label class="blue">10 11</label></div></a>
+              <a href="#about"><span class="listtext">Västra Skogen       </span><div class="listitem"><label class="blue">10 11</label></div></a>
 
               <!-- 10 -->
-              <a href="#about"><div class="listitem"><label class="blue">10</label><label class="blue">11</label></div><span class="listtext">Duvbo<span></a>
-              <a href="#about"><div class="listitem"><label class="blue">10</label><label class="blue">11</label></div><span class="listtext">Rissne<span></a>
-              <a href="#about"><div class="listitem"><label class="blue">10</label><label class="blue">11</label></div><span class="listtext">Rinkeby<span></a>
-              <a href="#about"><div class="listitem"><label class="blue">10</label><label class="blue">11</label></div><span class="listtext">Tensta<span></a>
-              <a href="#about"><div class="listitem"><label class="blue">10</label><label class="blue">11</label></div><span class="listtext">Hjulsta<span></a>
+              <a href="#about"><span class="listtext">Huvudsta            </span><div class="listitem"><label class="blue">10 11</label></div></a>
+              <a href="#about"><span class="listtext">Solna Strand        </span><div class="listitem"><label class="blue">10 11</label></div></a>
+
+              <!-- 10, 43, 44 -->
+              <a href="#about"><span class="listtext">Sundbyberg Centrum  </span><div class="listitem"><label class="blue">10</label><label class="pink">43 44</label></div></a>
+              <a href="#about"><span class="listtext">Solna Centrum       </span><div class="listitem"><label class="blue">10</label><label class="pink">43 44</label></div></a>
+
+              <!-- 10 -->
+              <a href="#about"><span class="listtext">Duvbo               </span><div class="listitem"><label class="blue">10 11</label></div></a>
+              <a href="#about"><span class="listtext">Rissne              </span><div class="listitem"><label class="blue">10 11</label></div></a>
+              <a href="#about"><span class="listtext">Rinkeby             </span><div class="listitem"><label class="blue">10 11</label></div></a>
+              <a href="#about"><span class="listtext">Tensta              </span><div class="listitem"><label class="blue">10 11</label></div></a>
+              <a href="#about"><span class="listtext">Hjulsta             </span><div class="listitem"><label class="blue">10 11</label></div></a>
 
               <!-- 11 -->
-              <a href="#about"><div class="listitem"><label class="blue">11</label></div><span class="listtext">Näckrosen<span></a>
-              <a href="#about"><div class="listitem"><label class="blue">11</label></div><span class="listtext">Hallonbergen<span></a>
-              <a href="#about"><div class="listitem"><label class="blue">11</label></div><span class="listtext">Kista<span></a>
-              <a href="#about"><div class="listitem"><label class="blue">11</label></div><span class="listtext">Husby<span></a>
-              <a href="#about"><div class="listitem"><label class="blue">11</label></div><span class="listtext">Akalla<span></a>
+              <a href="#about"><span class="listtext">Näckrosen           </span><div class="listitem"><label class="blue">11</label></div></a>
+              <a href="#about"><span class="listtext">Hallonbergen        </span><div class="listitem"><label class="blue">11</label></div></a>
+              <a href="#about"><span class="listtext">Kista               </span><div class="listitem"><label class="blue">11</label></div></a>
+              <a href="#about"><span class="listtext">Husby               </span><div class="listitem"><label class="blue">11</label></div></a>
+              <a href="#about"><span class="listtext">Akalla              </span><div class="listitem"><label class="blue">11</label></div></a>
+
+              <!-- RÖD -->
+              <!-- 13 -->
+              <a href="#about"><span class="listtext">Norsborg            </span><div class="listitem"><label class="red">13</label></div></a>
+              <a href="#about"><span class="listtext">Hallunda            </span><div class="listitem"><label class="red">13</label></div></a>
+              <a href="#about"><span class="listtext">Alby                </span><div class="listitem"><label class="red">13</label></div></a>
+              <a href="#about"><span class="listtext">Fittja              </span><div class="listitem"><label class="red">13</label></div></a>
+              <a href="#about"><span class="listtext">Masmo               </span><div class="listitem"><label class="red">13</label></div></a>
+              <a href="#about"><span class="listtext">Vårby Gård          </span><div class="listitem"><label class="red">13</label></div></a>
+              <a href="#about"><span class="listtext">Vårberg             </span><div class="listitem"><label class="red">13</label></div></a>
+              <a href="#about"><span class="listtext">Skärholmen          </span><div class="listitem"><label class="red">13</label></div></a>
+              <a href="#about"><span class="listtext">Sätra               </span><div class="listitem"><label class="red">13</label></div></a>
+              <a href="#about"><span class="listtext">Bredäng             </span><div class="listitem"><label class="red">13</label></div></a>
+              <a href="#about"><span class="listtext">Mälarhöjden         </span><div class="listitem"><label class="red">13</label></div></a>
+              <a href="#about"><span class="listtext">Axelsberg           </span><div class="listitem"><label class="red">13</label></div></a>
+              <a href="#about"><span class="listtext">Örnsberg            </span><div class="listitem"><label class="red">13</label></div></a>
+              <a href="#about"><span class="listtext">Aspudden            </span><div class="listitem"><label class="red">13</label></div></a>
+
+              <!-- 13, 14 -->
+              <a href="#about"><span class="listtext">Liljeholmen         </span><div class="listitem"><label class="red">13 14</label></div></a>
+              <a href="#about"><span class="listtext">Hornstull           </span><div class="listitem"><label class="red">13 14</label></div></a>
+              <a href="#about"><span class="listtext">Zinkensdamm         </span><div class="listitem"><label class="red">13 14</label></div></a>
+
+              <!-- 13, 14 -->
+              <a href="#about"><span class="listtext">Mariatorget         </span><div class="listitem"><label class="red">13 14</label></div></a>
+
+              <!-- 40, 41, 42, 43, 44, 45, 48 -->
+              <a href="#about"><span class="listtext">Stockholm Södra     </span><div class="listitem"><label class="pink">40 - 48</label></div></a>
+
+              <!-- 13, 14, 17, 18, 19 -->
+              <a href="#about"><span class="listtext">Slussen             </span><div class="listitem"><label class="red">13 14</label><label class="green">17 18 19</label></div></a>
+              <a href="#about"><span class="listtext">Gamla Stan          </span><div class="listitem"><label class="red">13 14</label><label class="green">17 18 19</label></div></a>
+
+              <!-- 13, 14 -->
+              <a href="#about"><span class="listtext">Östermalmstorg      </span><div class="listitem"><label class="red">13 14</label></div></a>
             </div>
           </div>
 
@@ -159,6 +195,20 @@
     <div id="map_dummy" style="display:none"></div>
 
     <script>
+
+      // Stuff we do when dom is ready,
+      $(document).ready(function(){
+
+        // Sort of hacky, dont really care though,
+        var width = $("#wheretogoinput").outerWidth();
+        var height = $(window).height()-150;
+
+        $(".dropdowncontent").css("max-width",width);
+        $(".dropdowncontent").css("min-width",width);
+        $(".dropdowncontent").css("max-height",height);
+      });
+
+      // Toggle selected line,
       function toggleLine(line) {
         if( $(".slmap."+line).is(":hidden") ) {
           $(".slmap").hide();
@@ -170,11 +220,11 @@
         }
       }
 
+      // Bindings,
       $(".line").on("click", function() {
         lineColor = $(this).data("color");
         toggleLine(lineColor);
       });
-
 
       $(".getpos").on("click", function() {
         init_geo();
@@ -187,7 +237,7 @@
         var input, filter, found, div, a, i, found;
 
         // Input element and dropdown-content,
-        input = document.getElementById("dropdown");
+        input = document.getElementById("wheretogoinput");
         dropdowncontent = document.getElementById("dropdowncontent");
 
         // Get the input,
