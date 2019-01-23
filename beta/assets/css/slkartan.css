@@ -36,6 +36,8 @@
       background:#000;
       border:0;
       width:100%;
+      height: 55px;
+      margin-top: 10px;
     }
       header input:focus {
         opacity:1;
@@ -257,6 +259,7 @@ top: 48.4%;
     padding: 5px 16px 5px 16px;
     text-decoration: none;
     display: block;
+    margin-left: 3px;
   }
 
   .listlabel {

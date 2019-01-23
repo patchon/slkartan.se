@@ -31,11 +31,11 @@
             <div class="dropdowncontent" id="dropdowncontent">
 
               <!-- Centralen, handle separetely -->
-              <a href="#about"><div class="listitem"><label class="red">666</label></div><span class="listtext">T-Centralen<span></a>
+              <a href="#about"><span class="listtext">T-Centralen         </span><div class="listitem"><label class="pink">&nbsp;</label><label class="blue">&nbsp</label><label class="green">&nbsp;</label><label class="red">&nbsp;</label></div></a>
 
               <!-- BLÅ -->
               <!-- 10, 11, 17, 18, 19 -->
-              <a href="#about"><span class="listtext">Fridhemsplan</span><div class="listitem"><label class="blue">10 11</label><label class="green">17 18 19</label></div></a>
+              <a href="#about"><span class="listtext">Fridhemsplan        </span><div class="listitem"><label class="blue">10 11</label><label class="green">17 18 19</label></div></a>
 
               <!-- 10, 11 -->
               <a href="#about"><span class="listtext">Kungsträdgården     </span><div class="listitem"><label class="blue">10 11</label></div></a>
@@ -99,6 +99,56 @@
 
               <!-- 13, 14 -->
               <a href="#about"><span class="listtext">Östermalmstorg      </span><div class="listitem"><label class="red">13 14</label></div></a>
+
+              <!-- GRÖN -->
+              <!-- 17 -->
+              <a href="#about"><span class="listtext">Skarpnäck      </span><div class="listitem"><label class="green">17</label></div></a>
+              <a href="#about"><span class="listtext">Bagarmossen    </span><div class="listitem"><label class="green">17</label></div></a>
+              <a href="#about"><span class="listtext">Kärrtorp       </span><div class="listitem"><label class="green">17</label></div></a>
+              <a href="#about"><span class="listtext">Björkhagen     </span><div class="listitem"><label class="green">17</label></div></a>
+              <a href="#about"><span class="listtext">Hammarbyhöjden </span><div class="listitem"><label class="green">17</label></div></a>
+              <a href="#about"><span class="listtext">Skärmarbrink   </span><div class="listitem"><label class="green">17</label></div></a>
+
+              <!--17, 18, 19 -->
+              <a href="#about"><span class="listtext">Gullmarsplan       </span><div class="listitem"><label class="green">17 18 19</label></div></a>
+              <a href="#about"><span class="listtext">Skanstull          </span><div class="listitem"><label class="green">17 18 19</label></div></a>
+              <a href="#about"><span class="listtext">Medborgarplatsen   </span><div class="listitem"><label class="green">17 18 19</label></div></a>
+              <a href="#about"><span class="listtext">Hötorget           </span><div class="listitem"><label class="green">17 18 19</label></div></a>
+              <a href="#about"><span class="listtext">Rådmansgatan       </span><div class="listitem"><label class="green">17 18 19</label></div></a>
+
+              <!-- 17, 18, 19, 40, 41, 42, 43, 44, 45, 48 -->
+              <a href="#about"><span class="listtext">Odenplan           </span><div class="listitem"><label class="green">17 18 19</label><label class="pink">40 - 48</label></div></a>
+
+
+              <!--17, 18, 19 -->
+              <a href="#about"><span class="listtext">S:t Eriksplan      </span><div class="listitem"><label class="green">17 18 19</label></div></a>
+              <a href="#about"><span class="listtext">Thorildsplan       </span><div class="listitem"><label class="green">17 18 19</label></div></a>
+              <a href="#about"><span class="listtext">Kristineberg       </span><div class="listitem"><label class="green">17 18 19</label></div></a>
+              <a href="#about"><span class="listtext">Alvik              </span><div class="listitem"><label class="green">17 18 19</label></div></a>
+
+              <a href="#about"><span class="listtext">Stora Mossen       </span><div class="listitem"><label class="green">17 18 19</label></div></a>
+              <a href="#about"><span class="listtext">Abrahamsberg       </span><div class="listitem"><label class="green">17 18 19</label></div></a>
+              <a href="#about"><span class="listtext">Brommaplan         </span><div class="listitem"><label class="green">17 18 19</label></div></a>
+              <a href="#about"><span class="listtext">Åkeshov            </span><div class="listitem"><label class="green">17 18 19</label></div></a>
+              <a href="#about"><span class="listtext">Ängbyplan          </span><div class="listitem"><label class="green">17 18 19</label></div></a>
+              <a href="#about"><span class="listtext">Islandstorget      </span><div class="listitem"><label class="green">17 18 19</label></div></a>
+              <a href="#about"><span class="listtext">Blackeberg         </span><div class="listitem"><label class="green">17 18 19</label></div></a>
+              <a href="#about"><span class="listtext">Råcksta            </span><div class="listitem"><label class="green">17 18 19</label></div></a>
+              <a href="#about"><span class="listtext">Vällingby          </span><div class="listitem"><label class="green">17 18 19</label></div></a>
+              <a href="#about"><span class="listtext">Johannelund        </span><div class="listitem"><label class="green">17 18 19</label></div></a>
+              <a href="#about"><span class="listtext">Hässelby Gård      </span><div class="listitem"><label class="green">17 18 19</label></div></a>
+
+
+
+
+
+
+
+
+
+
+
+
             </div>
           </div>
 
@@ -230,6 +280,10 @@
         init_geo();
       });
 
+      $("a").on("click", function() {
+        lineColor = $(this).data("color")
+        console.log($(this).children('div.listitem').find('label').attr('class'))
+      });
 
       // Function that will filter the dropdown list based on input,
       function filterlist(){
