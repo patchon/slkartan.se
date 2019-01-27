@@ -388,9 +388,11 @@
         lng = position.coords.longitude
 
         $.ajax({
-          url   : "https://35.228.224.238/php/ret_nearest_station.php",
-          type  : "post",
-          data  : "lat="+lat+"&lng="+lng,
+          url         : "https://35.228.224.238/php/ret_nearest_station.php",
+          type        : "post",
+          data        : "lat="+lat+"&lng="+lng,
+          contentType : "application/json; charset=utf-8",
+          dataType    : "json",
 
           success: function (response) {
             console.log(response);
