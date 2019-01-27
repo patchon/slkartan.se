@@ -374,7 +374,7 @@
           // On success,
           success: function (response) {
             console.log(response);
-            found_stations = response.LocationList.StopLocation;
+            found_stations = response;
 
             // Zero stations returned, or some internal error.
             if (found_stations.length < 1){
