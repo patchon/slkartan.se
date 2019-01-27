@@ -389,7 +389,8 @@
           // On error,,
           error: function(jqXHR, textStatus, errorThrown) {
              console.log(textStatus, errorThrown);
-             $("#posfound").html('<li>Ett internt fel har uppstått.</li>');
+             $("#posfound").html(textStatus+errorThrown);
+             //$("#posfound").html('<li>Ett internt fel har uppstått.</li>');
           }
         });
       }
