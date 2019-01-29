@@ -503,7 +503,7 @@
             }
 
             // Just populate the list with stations,
-            populate_stations(found_stations)
+            populate_stations(found_stations,lat,lng)
           },
 
           // On error,,
@@ -516,14 +516,14 @@
       }
 
       // Callback function that will populate the list with found stations,
-      function populate_stations(found_stations) {
+      function populate_stations(found_stations, lat, lng) {
 
         // Reset list,
         $("#posfound").html('');
 
         // Populate list,
         for (i = 0; i < found_stations.length; i++) {
-          $("#posfound").append("<li>"+found_stations[i].name+", "+found_stations[i].dist+"meter.");
+          $("#posfound").append("<li>"+found_stations[i].name+", "+found_stations[i].dist+"meter, "+"din nuvarande position, lat: "+lat+", lng: "+lng+".");
         }
       }
     </script>
