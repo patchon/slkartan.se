@@ -20,16 +20,16 @@
         <header>
           <h1>SL<strong>KARTAN</strong></h1>
           <div class="version">v 0.1a</div>
-          <!--<div class="getpos"> Get closest subway </div>-->
-          <button class="button" id="getpos_stack">2</button>
-          <button class="button" id="getpos">1</button>
-
+          <button class="button" id="get_device_position">GET_POS</button>
 
           <!-- Testing dropdown alternatives -->
           <div id="dropdowndiv">
 
-            <input type="text" placeholder="Var är du" id="realpos_debug">
-            <!--<input type="text" placeholder="Vart vill du åka ?" id="wheretogoinput" onfocusout="hidelist()" onfocus="filterlist()" onkeyup="filterlist()">-->
+            <!-- Inputs -->
+            <input type="text" placeholder="Vart befinner du dig ?" id="where_are_you">
+            <input type="text" placeholder="Vart vill du åka ?"     id="where_to_go" onfocusout="hidelist()" onfocus="filterlist()" onkeyup="filterlist()">
+
+            <!-- The actual dropdown content -->
             <div class="dropdowncontent" id="dropdowncontent">
 
               <!-- Centralen, handle separetely -->
@@ -319,60 +319,85 @@
 
     <script>
 
-      // Stuff we do when dom is ready,
-      $(document).ready(function(){
+      // Stuff we do when dom is ready, this should be fixed with
+      // proper css,
+      //$(document).ready(function(){
 
-        // Sort of hacky, dont really care though,
-        var width = $("#wheretogoinput").outerWidth();
-        var height = $(window).height()-150;
+      //  // Sort of hacky, dont really care though,
+      //  var width = $("#wheretogoinput").outerWidth();
+      //  var height = $(window).height()-150;
 
-        $(".dropdowncontent").css("max-width",width);
-        $(".dropdowncontent").css("min-width",width);
-        $(".dropdowncontent").css("max-height",height);
-      });
+      //  $(".dropdowncontent").css("max-width",width);
+      //  $(".dropdowncontent").css("min-width",width);
+      //  $(".dropdowncontent").css("max-height",height);
+      //});
 
-      // Toggle selected line,
-      function toggleLine(line) {
-        if( $(".slmap."+line).is(":hidden") ) {
-          $(".slmap").hide();
-          $(".slmap."+line).show();
-          $(".line").addClass("inactive").filter("."+line).removeClass("inactive");
-        } else {
-          $(".slmap").hide().filter(".all").show();
-          $(".line").removeClass("inactive");
-        }
-      }
 
+
+      // * * * *
+      //
       // Bindings,
+      //
+      //
+
+
+      // Toggle different lines when clicking,
       $(".line").on("click", function() {
         lineColor = $(this).data("color");
         toggleLine(lineColor);
       });
 
-      $("#getpos").on("click", function() {
-        getpos();
+
+      // Get the device's position when clicked,
+      $("#get_device_position").on("click", function() {
+        get_device_position();
       });
 
-      $("#getpos_stack").on("click", function() {
-        getpos_stack();
+      // Show the list of stations on focus, keyup events,
+      $("#where_are_you").on("keyup focus", function() {
+        filter_list($(this));
       });
 
-      $("a").on("click", function() {
-        lineColor = $(this).data("color")
-        console.log($(this).children('div.listitem').find('label').attr('class'))
+      // Show the list of stations on focus, keyup events,
+      $("#where_are_you, #where_to_go").on("focusout", function() {
+        hide_list();
       });
+
+
+
+      //$("a").on("click", function() {
+      //  lineColor = $(this).data("color")
+      //  console.log($(this).children('div.listitem').find('label').attr('class'))
+      //});
+
+
+
+
+
+
+      // * * * *
+      //
+      // Functions,
+      //
+      //
+
 
       // Function that will filter the dropdown list based on input,
-      function filterlist(){
+      function filter_list(input){
 
-        var input, filter, found, div, a, i, found;
+        var filter, found, div, a, i;
+        var dropdowncontent = document.getElementById("dropdowncontent");
+        var offset          = input.offset().top+input.outerHeight();
+        var height          = window.innerHeight - 140;
 
-        // Input element and dropdown-content,
-        input = document.getElementById("wheretogoinput");
-        dropdowncontent = document.getElementById("dropdowncontent");
+        // Size the dropdown menu,
+        // TODO Fix so menu adopts when phone keyboard is brought out,
+        dropdowncontent.style.top       = offset;
+        dropdowncontent.style.width     = input.outerWidth();
+        dropdowncontent.style.maxHeight = height;
 
         // Get the input,
-        filter = input.value.toLowerCase();
+        filter = input.val().toLowerCase();
 
         // Hide content if we dont have any input,
         if (filter == ""){
@@ -404,49 +429,115 @@
       }
 
 
+
       // Function that just will hide the dropdown, called when input focus
       // is lost,
-      function hidelist(){
-        dropdowncontent = document.getElementById("dropdowncontent");
-        dropdowncontent.style.display = "none"
+      function hide_list(){
+        var dropdowncontent = document.getElementById("dropdowncontent");
+            dropdowncontent.style.display = "none"
       }
-      var global_foo = 0;
 
-      function getpos_stack() {
 
-        //Dummy one, which will result in a working next statement.
-        navigator.geolocation.getCurrentPosition(function () {}, function () {}, {});
 
-        //The working next statement.
-        var options = { maximumAge: 0, timeout: 10000, enableHighAccuracy: true };
-        global_foo = 2;
-        navigator.geolocation.getCurrentPosition(handle_position,
-                                                 handle_position_error,
+      // Function that is beeing called when we ask for the device location.
+      // Callbacks handle the result from the geolocation api.
+      function get_device_position() {
+
+        // Handle devices that don't support geolocation functionality,
+        if (!("geolocation" in navigator)) {
+          $("#posfound").html('<li>FEL : Kan inte använda GPS funktionalitet.</li>');
+          return;
+        }
+
+        // Set accuracy to high, and give device ten seconds to find its position.
+        // Lets see how well this works,
+        var options = {
+          enableHighAccuracy : true,
+          timeout            : 10000
+        };
+
+        // Get the current position, callbacks handle the result
+        navigator.geolocation.getCurrentPosition(callback_handle_position_success,
+                                                 callback_handle_position_error,
                                                  options);
       }
 
-      function getpos() {
-        var options = { maximumAge: 0, timeout: 10000, enableHighAccuracy: false };
 
-        global_foo = 1;
-        navigator.geolocation.getCurrentPosition(handle_position,
-                                                 handle_position_error,
-                                                 options);
+
+      // Function that can be called to get nearest station from lat, lng.
+      // Thats a bit of strecting the truth since my javascript skills are limited,
+      // calling this function will actually do everything that we kinda want
+      // to do with our response data,
+      function get_nearest_station_from_backend(lat,lng){
+
+        // Reset list,
+        $("#posfound").html('');
+
+        var backend_url   = "https://backend.slkartan.se/php/ret_nearest_station.php";
+        var real_position = $("#where_are_you").val();
+
+        // To debug real locations vs returned location,
+        if (real_position == "") { real_position = "NOT_SET"; }
+
+        // Old school, classic ajax request,
+        var epoch_ajax_start = (new Date).getTime();
+        $.ajax({
+          url         : backend_url,
+          type        : "post",
+          data        : "lat="+lat+"&lng="+lng+"&realpos="+real_position,
+          dataType    : "json",
+
+          // On success,
+          success: function (response) {
+            console.log(response);
+            found_stations = response;
+
+            // Zero stations returned, or some internal error.
+            if (found_stations.length < 1){
+              $("#posfound").html('<li>Ingen tunnelbanestation hittad inom 500 meter '+epoch_ajax_start+'.</li>');
+              return;
+            }
+
+            // Just populate the list with stations,
+            callback_populate_stations(found_stations,lat,lng,epoch_ajax_start)
+          },
+
+          // On error,,
+          error: function(jqXHR, textStatus, errorThrown) {
+             console.log(textStatus, errorThrown);
+             $("#posfound").html('<li>Ett internt fel har uppstått.</li>');
+          }
+        });
       }
 
-      // Function that will ask the browser for the position.
-      // function getpos() {
-      //   if (navigator.geolocation) {
-      //     navigator.geolocation.getCurrentPosition(handle_position,
-      //                                              handle_position_error);
-      //   }else{
-      //     console.log("Browser doesn't support geolocation.");
-      //   }
-      // }
 
-      // Function that will handle error from the geolocation api,
-      function handle_position_error(error) {
-        console.log(error);
+
+
+
+
+      // * * * *
+      //
+      // Callback functions,
+      //
+      //
+
+
+
+      // Callback function that will handle the coordinates returned from the
+      // geolocation api.
+      function callback_handle_position_success(position) {
+
+        var lat = position.coords.latitude;
+        var lng = position.coords.longitude;
+
+        console.log("Position returned from geoloaction api, lat:"+lat+", "+lng+".");
+        get_nearest_station_from_backend(lat,lng);
+      }
+
+
+
+      // Callback function that will handle error from the geolocation api,
+      function callback_handle_position_error(error) {
         var err_str = "Unhandled error from geolocation api."
 
         switch(error.code) {
@@ -464,67 +555,119 @@
             break;
         }
 
+        console.log(error);
+        console.log(err_str);
         $("#posfound").html('<li>'+err_str+'</li>');
       }
 
 
-      // Function that will handle long, lats given by the browser.
-      function handle_position(position,button) {
-        console.log(position);
-
-        lat = position.coords.latitude,
-        lng = position.coords.longitude
-        realpos = "button : "+global_foo+", real_pos : ";
-
-        realpos_input = $("#realpos_debug").val();
-
-        if (realpos_input == ""){
-          realpos_input = "NOT_SET";
-        }
-
-        realpos += realpos_input;
-
-        // Ask backend for nearest station(s),
-        $.ajax({
-          url         : "https://backend.slkartan.se/php/ret_nearest_station.php",
-          type        : "post",
-          data        : "lat="+lat+"&lng="+lng+"&realpos="+realpos,
-          dataType    : "json",
-
-          // On success,
-          success: function (response) {
-            console.log(response);
-            found_stations = response;
-
-            // Zero stations returned, or some internal error.
-            if (found_stations.length < 1){
-              $("#posfound").html('<li>Ingen tunnelbanestation hittad inom 500 meter.</li>');
-              return;
-            }
-
-            // Just populate the list with stations,
-            populate_stations(found_stations,lat,lng)
-          },
-
-          // On error,,
-          error: function(jqXHR, textStatus, errorThrown) {
-             console.log(textStatus, errorThrown);
-             // $("#posfound").html(textStatus+errorThrown);
-             $("#posfound").html('<li>Ett internt fel har uppstått.</li>');
-          }
-        });
-      }
 
       // Callback function that will populate the list with found stations,
-      function populate_stations(found_stations, lat, lng) {
+      function callback_populate_stations(found_stations, lat, lng, epoch_ajax_start) {
 
-        // Reset list,
-        $("#posfound").html('');
+        var dropdowncontent = document.getElementById("dropdowncontent");
+        var stations        = $("#dropdowncontent a span.listtext");
+
+        var found;
+        var epoch_ajax_done = (new Date).getTime();
+            diff = epoch_ajax_done - epoch_ajax_start;
+
+        var input = document.getElementById("where_are_you");
+        var offset          = $(input).offset().top+$(input).outerHeight();
+        var height          = window.innerHeight - 140;
+
+        // Size the dropdown menu,
+        // TODO Fix so menu adopts when phone keyboard is brought out,
+        dropdowncontent.style.top       = offset;
+        dropdowncontent.style.width     = $(input).outerWidth();
+        dropdowncontent.style.maxHeight = height;
 
         // Populate list,
         for (i = 0; i < found_stations.length; i++) {
-          $("#posfound").append("<li>"+found_stations[i].name+", "+found_stations[i].dist+"meter, "+"din nuvarande position, lat: "+lat+", lng: "+lng+".");
+          $("#posfound").append("<li>"+found_stations[i].name+", "+found_stations[i].dist+
+                                "meter, "+"din nuvarande position, lat: "+lat+", lng: "+
+                                 lng+", "+epoch_ajax_start+", calltime :"+diff+".");
+
+          // Loop all a's and match to our filter,
+          for (j = 0; j < stations.length; j++) {
+            stations_name = $(stations[j]).text().trim();
+            //console.log(stations_name);
+            //   txtValue = a[j].textContent || a[j].innerText;
+            console.log("Comparing ->"+stations_name+"<- with ->"+found_stations[i].name+"<-")
+            if (stations_name == found_stations[i].name) {
+              console.log(stations_name);
+              console.log($(stations[j]).parent().show());
+          //     console.log("found stations)
+          //     a[j].style.display = "";
+               found=1;
+             } else {
+              console.log($(stations[j]).parent().hide());
+             }
+          }
+
+          // // This is just to hide the whole div, otherwise it leaves
+          // // a mark on the search box
+           if (found){
+             dropdowncontent.style.display="block";
+           }else{
+             dropdowncontent.style.display="none";
+           }
+
         }
+
+
+      }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      // Toggle selected line,
+      function toggleLine(line) {
+        if( $(".slmap."+line).is(":hidden") ) {
+          $(".slmap").hide();
+          $(".slmap."+line).show();
+          $(".line").addClass("inactive").filter("."+line).removeClass("inactive");
+        } else {
+          $(".slmap").hide().filter(".all").show();
+          $(".line").removeClass("inactive");
+        }
+      }
+
+
+
+
+
+
+
+
+
+
+
+
+      var global_foo = 0;
+
+      function getpos_stack() {
+
+        //Dummy one, which will result in a working next statement.
+        navigator.geolocation.getCurrentPosition(function () {}, function () {}, {});
+
+        //The working next statement.
+        var options = { maximumAge: 0, timeout: 10000, enableHighAccuracy: true };
+        global_foo = 2;
+        navigator.geolocation.getCurrentPosition(handle_position,
+                                                 handle_position_error,
+                                                 options);
       }
     </script>
   </body>
