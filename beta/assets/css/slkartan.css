@@ -300,3 +300,9 @@ top: 48.4%;
     margin-right: 10px;
     margin-top: 5px;
   }
+
+  .tiny {
+    font-size: 9px;
+    font-weight: bold;
+    text-decoration: underline;
+  }
