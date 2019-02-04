@@ -27,7 +27,7 @@
 
             <!-- Inputs -->
             <input type="text" placeholder="Vart befinner du dig ?" id="where_are_you">
-            <input type="text" placeholder="Vart vill du åka ?"     id="where_to_go" onfocusout="hidelist()" onfocus="filterlist()" onkeyup="filterlist()">
+            <input type="text" placeholder="Vart vill du åka ?"     id="where_to_go">
 
             <!-- The actual dropdown content -->
             <div class="dropdowncontent" id="dropdowncontent">
@@ -340,7 +340,7 @@
       });
 
       // Show the list of stations on focus, keyup events,
-      $("#where_are_you").on("keyup focus", function() {
+      $("#where_are_you,#where_to_go").on("keyup focus", function() {
         filter_list($(this));
       });
 
@@ -426,10 +426,15 @@
 
       // Function that will set the station the user click on the value
       // of the input,
-      // TODO Make it work with both inputs,
       function set_input_fields(station){
-        var input = $("#where_are_you");
         var dropdowncontent = document.getElementById("dropdowncontent");
+        var input      = $("#where_are_you");
+        var pixels_top = station[0].parentNode.style.top.replace("px","");
+
+        // Pew Pew, determine which input box the menu belonged to, heh.
+        if (pixels_top > 135){
+           input =  $("#where_to_go");
+        }
 
         $(input).val($(station).children(":first").text().trim());
         dropdowncontent.style.display = "none";
@@ -489,6 +494,13 @@
           // On success,
           success: function (response) {
             console.log(response);
+
+            if (response.error){
+              $("#posfound").html('<li>'+response.error+', '+epoch_ajax_start+'</li>');
+              console.log(response.error);
+              return;
+            }
+
             found_stations = response;
 
             // Zero stations returned, or some internal error.
@@ -504,7 +516,7 @@
           // On error,,
           error: function(jqXHR, textStatus, errorThrown) {
              console.log(textStatus, errorThrown);
-             $("#posfound").html('<li>Ett internt fel har uppstått.</li>');
+             $("#posfound").html('<li>Ett internt ohanterat fel har uppstått.</li>');
           }
         });
       }

@@ -38,6 +38,7 @@
       width:100%;
       height: 55px;
       margin-top: 10px;
+      border: solid 1px #ab8130;
     }
       header input:focus {
         opacity:1;
@@ -304,5 +305,4 @@ top: 48.4%;
   .tiny {
     font-size: 9px;
     font-weight: bold;
-    text-decoration: underline;
   }
