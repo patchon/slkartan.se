@@ -344,16 +344,17 @@
         filter_list($(this));
       });
 
-      // Show the list of stations on focus, keyup events,
-      $("a.station").on("click", function() {
+      // Set input fields to selected station. Note that we use
+      // mousedown here instead of click since its triggered *before*
+      // the focusout-event that hides the menu.
+      $("a.station").on("mousedown", function() {
         set_input_fields($(this));
       });
 
-      // TODO Hide the list when we loose focus,
-      // $("#where_are_you, #where_to_go").on("focusout", function(e) {
-      //   console.log(e);
-      //   hide_list();
-      // });
+      // Hide list when we loose focus,
+      $("#where_are_you, #where_to_go").on("focusout", function(e) {
+        hide_list();
+      });
 
 
 
