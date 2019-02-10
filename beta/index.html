@@ -388,6 +388,9 @@
         // Hide content if we dont have any input,
         if (filter == ""){
           dropdowncontent.style.display = "none"
+
+          // Remove station labels
+          $(".label_input_"+input[0].id).html("");
           return
         }
 
@@ -431,13 +434,37 @@
         var dropdowncontent = document.getElementById("dropdowncontent");
         var input      = $("#where_are_you");
         var pixels_top = station[0].parentNode.style.top.replace("px","");
+        var class_name = "label_input_where_are_you"
 
         // Pew Pew, determine which input box the menu belonged to, heh.
         if (pixels_top > 135){
            input =  $("#where_to_go");
+           class_name = "label_input_where_to_go"
         }
 
+        // Add station name to input,
         $(input).val($(station).children(":first").text().trim());
+
+        // Construct div with lines for this station. Could clone this
+        // as well, not sure why I went with this method.
+        $("."+class_name).html("");
+        var lines = $('<div class="listitem '+class_name+'">');
+
+        $($(station).children("div.listitem")[0].childNodes).each(function( index ) {
+          lines.append($(this)[0].outerHTML);
+        });
+
+        lines.append('</div>');
+        lines.appendTo("#dropdowndiv");
+
+        // Calculate position,
+        var offset_t = $(input).offset().top+14;
+        var offset_l = $(input).offset().left+13;
+
+        $("."+class_name).css("position", "absolute");
+        $("."+class_name).css("top", offset_t);
+        $("."+class_name).css("right", offset_l);
+
         dropdowncontent.style.display = "none";
         $(".tiny").remove();
       }
