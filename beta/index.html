@@ -20,11 +20,14 @@
         <header>
           <h1>SL<strong>KARTAN</strong></h1>
           <div class="version">v 0.1a</div>
-          <!--<button class="button" id="get_device_position">POS</button>
-          <button class="button" id="get_travel_path">PATH</button>
-          -->
+
+          <div class="flip-container" id="flip-toggle">
+            <div class="flipper">
+              <div class="front">
+
           <!-- Testing dropdown alternatives -->
           <div id="dropdowndiv">
+
 
             <!-- Inputs -->
             <div id=input_with_image>
@@ -230,13 +233,21 @@
 
             </div>
           </div>
+          </div>
+
+            <div class="back">
+              <!-- back content -->
+            </div>
+
+          </div>
 
           <!-- Testing location api -->
           <div>
             <ol id="posfound"></ol>
           </div>
-        </header>
 
+
+        </header>
         <!-- Header Tunnelbana-->
         <div class="type">
           <h2>
@@ -357,10 +368,22 @@
       });
 
       // Hide list when we loose focus,
-      $("#where_are_you, #where_to_go").on("focusout", function(e) {
+      $("#where_are_you").on("focusout", function(e) {
         hide_list();
       });
 
+      $("#where_to_go").on("focusout", function(e) {
+        hide_list();
+
+        var start = $("#where_are_you").val();
+        var end = $("#where_to_go").val();
+
+        if (start){
+          console.log(">"+start+"<"+">"+end+"<");
+          get_nearest_path_from_backend(start,end)
+       }
+
+      });
 
 
 
@@ -378,7 +401,7 @@
 
         var filter, found, div, a, i;
         var dropdowncontent = document.getElementById("dropdowncontent");
-        var offset          = input.offset().top+input.outerHeight();
+        var offset          = input.offset().top+input.outerHeight()-65;
         var height          = window.innerHeight - 140;
 
         // Size the dropdown menu,
@@ -437,14 +460,16 @@
       // of the input,
       function set_input_fields(station){
         var dropdowncontent = document.getElementById("dropdowncontent");
-        var input      = $("#where_are_you");
-        var pixels_top = station[0].parentNode.style.top.replace("px","");
-        var class_name = "label_input_where_are_you"
+        var input         = $("#where_are_you");
+        var pixels_top    = station[0].parentNode.style.top.replace("px","");
+        var class_name    = "label_input_where_are_you"
+        var offset_l_plus = 50
 
         // Pew Pew, determine which input box the menu belonged to, heh.
-        if (pixels_top > 135){
-           input =  $("#where_to_go");
-           class_name = "label_input_where_to_go"
+        if (pixels_top > 100){
+          input =  $("#where_to_go");
+          class_name = "label_input_where_to_go"
+          offset_l_plus = 0
         }
 
         // Add station name to input,
@@ -463,8 +488,8 @@
         lines.appendTo("#dropdowndiv");
 
         // Calculate position,
-        var offset_t = $(input).offset().top+14;
-        var offset_l = $(input).offset().left+50;
+        var offset_t = $(input).offset().top-52;
+        var offset_l = $(input).offset().left+offset_l_plus;
 
         $("."+class_name).css("position", "absolute");
         $("."+class_name).css("top", offset_t);
@@ -555,6 +580,45 @@
       }
 
 
+      // Function that can be called to get nearest traveling path.
+      // Thats a bit of strecting the truth since my javascript skills are limited,
+      // calling this function will actually do everything that we kinda want
+      // to do with our response data,
+      function get_nearest_path_from_backend(start,end){
+
+        // Reset list,
+        $("#posfound").html('');
+
+        var backend_url   = "https://backend.slkartan.se/php/ret_quickest_path.php";
+
+        // Old school, classic ajax request,
+        var epoch_ajax_start = (new Date).getTime();
+        $.ajax({
+          url         : backend_url,
+          type        : "post",
+          data        : "start="+start+"&end="+end,
+          dataType    : "text",
+
+          // On success,
+          success: function (response) {
+            console.log(response)
+            callback_populate_path(response)
+
+            if (response.error){
+              $("#posfound").html('<li>'+response.error+', '+epoch_ajax_start+'</li>');
+              console.log(response.error);
+              return;
+            }
+
+          },
+
+          // On error,,
+          error: function(jqXHR, textStatus, errorThrown) {
+             console.log(textStatus, errorThrown);
+             $("#posfound").html('<li>Ett internt ohanterat fel har uppstått.</li>');
+          }
+        });
+      }
 
 
 
@@ -658,7 +722,10 @@
 
 
 
-
+     function callback_populate_path(response){
+       $(".back").text(response);
+       document.querySelector("#flip-toggle").classList.toggle("flip");
+     }
 
 
 
@@ -686,30 +753,6 @@
       }
 
 
-
-
-
-
-
-
-
-
-
-
-      var global_foo = 0;
-
-      function getpos_stack() {
-
-        //Dummy one, which will result in a working next statement.
-        navigator.geolocation.getCurrentPosition(function () {}, function () {}, {});
-
-        //The working next statement.
-        var options = { maximumAge: 0, timeout: 10000, enableHighAccuracy: true };
-        global_foo = 2;
-        navigator.geolocation.getCurrentPosition(handle_position,
-                                                 handle_position_error,
-                                                 options);
-      }
     </script>
   </body>
 </html>
