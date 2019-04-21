@@ -30,10 +30,9 @@
       display:block;
       font-size:16px;
       border-radius:3px;
-      opacity:0.3;
+      opacity:0.9;
       padding:10px;
-      color:#fff;
-      background:#000;
+      background-color:#FFF!important;
       border:0;
       width:100%;
       height: 55px;
@@ -306,3 +305,14 @@ top: 48.4%;
     font-size: 9px;
     font-weight: bold;
   }
+
+#input_with_image{
+  position: relative;
+}
+
+#get_device_position{
+  position:absolute;
+  left:90%;
+  top:29%;
+  cursor:pointer;
+}

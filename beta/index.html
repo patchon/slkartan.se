@@ -20,13 +20,18 @@
         <header>
           <h1>SL<strong>KARTAN</strong></h1>
           <div class="version">v 0.1a</div>
-          <button class="button" id="get_device_position">GET_POS</button>
-
+          <!--<button class="button" id="get_device_position">POS</button>
+          <button class="button" id="get_travel_path">PATH</button>
+          -->
           <!-- Testing dropdown alternatives -->
           <div id="dropdowndiv">
 
             <!-- Inputs -->
-            <input type="text" placeholder="Vart befinner du dig ?" id="where_are_you">
+            <div id=input_with_image>
+              <input type="text" placeholder="Vart befinner du dig ?" id="where_are_you">
+              <img id="get_device_position" src="assets/imgs/gps_globe.png" />
+            </div>
+
             <input type="text" placeholder="Vart vill du åka ?"     id="where_to_go">
 
             <!-- The actual dropdown content -->
@@ -459,7 +464,7 @@
 
         // Calculate position,
         var offset_t = $(input).offset().top+14;
-        var offset_l = $(input).offset().left+13;
+        var offset_l = $(input).offset().left+35;
 
         $("."+class_name).css("position", "absolute");
         $("."+class_name).css("top", offset_t);
