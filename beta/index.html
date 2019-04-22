@@ -232,23 +232,7 @@
                   </div>
                 </div> <!-- End dropdowndiv -->
               </div> <!-- End front side -->
-
-              <div class="back">
-
-                Du befinner dig vid <span class="station">Akalla</span> <label class="blue path">11</label> och vill ta dig till <span class="station">Hallunda</span> <label class="red path">13</label><p>
-
-                <ul class="path">
-                  <li>Ta linje <label class="blue path">11</label> från <span class="station">Akalla</span> till <span class="station">T-Centralen</span>, avgångstid är <span class="time">17:43</span>.</li>
-
-                  <li>Ta linje <label class="red path">13</label> från <span class="station">T-Centralen</span> till <span class="station">Hallunda</span>, avgångstid är <span class="time">17:48</span>.</li>
-
-
-<!--
-Linje 19 (tunnelbana) från Högdalen till Gullmarsplan (mot Gullmarsplan).
-Linje 17 (tunnelbana) från Gullmarsplan till Slussen (mot Slussen).
-Linje 14 (tunnelbana) från Slussen till T-Centralen (mot Mörby centrum).
-Linje 43 (pendeltåg) från Stockholm City till Spånga (mot Bålsta).-->
-              </div>
+              <div class="back"></div>
             </div> <!-- End flipper -->
           </div> <!-- End flip-container  -->
 
@@ -735,7 +719,7 @@ Linje 43 (pendeltåg) från Stockholm City till Spånga (mot Bålsta).-->
 
 
      function callback_populate_path(response){
-       $(".back").text(response);
+       $(".back").html(response);
        document.querySelector("#flip-toggle").classList.toggle("flip");
 
        $(".back").append('<div id="reset"> Back </span>');

@@ -323,7 +323,7 @@ top: 48.4%;
   perspective: 1000px;
 }
 
-.flip-container .flipper, .flip-container.hover .flipper, .flip-container.flip .flipper {
+.flip-container.hover .flipper, .flip-container.flip .flipper {
   transform: rotateY(180deg);
 }
 
@@ -381,7 +381,7 @@ top: 48.4%;
 label.path {
   font-weight: 600;
   font-size: 77%;
-  vertical-align: text-top;
+  vertical-align: middle;
 }
 
 ul.path {
