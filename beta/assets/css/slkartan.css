@@ -323,7 +323,7 @@ top: 48.4%;
   perspective: 1000px;
 }
 
-.flip-container.hover .flipper, .flip-container.flip .flipper {
+.flip-container .flipper, .flip-container.hover .flipper, .flip-container.flip .flipper {
   transform: rotateY(180deg);
 }
 
@@ -362,4 +362,42 @@ top: 48.4%;
 #reset {
   display: block;
   padding-top: 10px;
+}
+
+.back {
+  font-size: 73%;
+  font-weight: 100;
+  padding: 10px;
+}
+
+.path {
+  border-radius: 3px;
+  font-size: 105%;
+  padding-left: 4px;
+  padding-right: 4px;
+  padding-top: 1px;
+  padding-bottom: 1px;
+}
+
+label.path {
+
+  font-weight: 600;
+    font-size: 77%;
+    vertical-align: text-top;
+}
+
+ul.path {
+  padding-left:0px;
+  font-size: 90%;
+  list-style-type: none;
+  padding-bottom: 5px;
+}
+
+.station{
+  font-weight:600;
+}
+
+.time {
+  font-weight: 600;
+  color: #7aff5c;
 }
