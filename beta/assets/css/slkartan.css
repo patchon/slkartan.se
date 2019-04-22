@@ -365,14 +365,13 @@ top: 48.4%;
 }
 
 .back {
-  font-size: 73%;
+  font-size: 80%;
   font-weight: 100;
   padding: 10px;
 }
 
 .path {
   border-radius: 3px;
-  font-size: 105%;
   padding-left: 4px;
   padding-right: 4px;
   padding-top: 1px;
@@ -380,17 +379,18 @@ top: 48.4%;
 }
 
 label.path {
-
   font-weight: 600;
-    font-size: 77%;
-    vertical-align: text-top;
+  font-size: 77%;
+  vertical-align: text-top;
 }
 
 ul.path {
   padding-left:0px;
-  font-size: 90%;
   list-style-type: none;
-  padding-bottom: 5px;
+}
+
+ul li {
+  padding-bottom: 10px;
 }
 
 .station{
@@ -399,5 +399,4 @@ ul.path {
 
 .time {
   font-weight: 600;
-  color: #7aff5c;
 }
