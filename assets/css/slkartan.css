@@ -27,15 +27,17 @@
       display: inline;
     }
     header input {
-      display:none;
+      display:block;
       font-size:16px;
       border-radius:3px;
-      opacity:0.3;
+      opacity:0.9;
       padding:10px;
-      color:#fff;
-      background:#000;
+      background-color:#FFF!important;
       border:0;
       width:100%;
+      height: 55px;
+      margin-top: 10px;
+      border: solid 1px #ab8130;
     }
       header input:focus {
         opacity:1;
@@ -46,9 +48,7 @@
   }
 
   .version {
-    display: inline;
-    float: right;
-    padding-top: 22px;
+    display: contents;
     font-size: 9px;
     font-weight: bold;
   }
@@ -159,26 +159,28 @@
       }
 
       .side .line.blue label,
-      .side .line.blue figure {
+      .side .line.blue figure,
+      label.blue{
         background: #248AC4;
       }
 
       .side .line.red label,
-      .side .line.red figure {
+      .side .line.red figure,
+      label.red {
         background: #E42C31;
       }
 
       .side .line.green label,
-      .side .line.green figure {
+      .side .line.green figure,
+      label.green {
         background: #34B15B;
       }
 
       .side .line.pink label,
-      .side .line.pink figure {
+      .side .line.pink figure,
+      label.pink {
         background:#EB449E;
       }
-
-
 
   .content {
     width: calc(100vw - 400px);
@@ -235,3 +237,166 @@ top: 48.4%;
 
 }
 
+
+/** Testing dropdown **/
+
+  .dropdowncontent {
+    display: none;
+    position: absolute;
+    background-color: #eaeaea;
+    /*min-width: 230px;*/
+    z-index: 1;
+    overflow-x: scroll;
+    border-radius:3px;
+    padding:7px;
+    border:0;
+  }
+
+  .dropdowncontent a {
+    color: black;
+    padding: 5px 16px 5px 16px;
+    text-decoration: none;
+    display: block;
+    margin-left: 3px;
+  }
+
+  .listlabel {
+    display: inline!important;
+  }
+
+  .listtext {
+    line-height: 28px;
+  }
+
+  div.listitem {
+    display: inline;
+    height:10px;
+    flex-grow:1;
+    margin:0 8px 0 -5px;
+    border-radius:2px;
+    border-top-left-radius:0;
+    border-bottom-left-radius:0;
+  }
+
+  div.listitem label {
+    padding:2px 8px;
+    margin:2px 5px 2px 0;
+    border-radius:3px;
+    font-weight:600;
+    word-spacing: 8px;
+    float: right;
+  }
+
+  .button {
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 10px 6px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    float: right;
+    width: 150px;
+    margin-right: 10px;
+    margin-top: 5px;
+  }
+
+  .tiny {
+    font-size: 9px;
+    font-weight: bold;
+  }
+
+#input_with_image{
+  position: relative;
+}
+
+#get_device_position{
+  position:absolute;
+  left:90%;
+  top:28%;
+  cursor:pointer;
+}
+
+
+/* entire container, keeps perspective */
+.flip-container {
+  perspective: 1000px;
+}
+
+.flip-container.hover .flipper, .flip-container.flip .flipper {
+  transform: rotateY(180deg);
+}
+
+.flip-container, .front, .back {
+  width: 100%;
+  height: 130px;
+}
+
+/* flip speed goes here */
+.flipper {
+  transition: 0.6s;
+  transform-style: preserve-3d;
+  position: relative;
+}
+
+/* hide back of pane during swap */
+.front, .back {
+  backface-visibility: hidden;
+
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+/* front pane, placed above back */
+.front {
+  z-index: 2;
+  transform: rotateY(0deg);
+}
+
+/* back, initially hidden pane */
+.back {
+  transform: rotateY(180deg);
+}
+
+#reset {
+  display: block;
+  padding-top: 10px;
+}
+
+.back {
+  font-size: 80%;
+  font-weight: 100;
+  padding: 10px;
+}
+
+.path {
+  border-radius: 3px;
+  padding-left: 4px;
+  padding-right: 4px;
+  padding-top: 1px;
+  padding-bottom: 1px;
+}
+
+label.path {
+  font-weight: 600;
+  font-size: 77%;
+  vertical-align: middle;
+}
+
+ul.path {
+  padding-left:0px;
+  list-style-type: none;
+}
+
+ul li {
+  padding-bottom: 10px;
+}
+
+.station{
+  font-weight:600;
+}
+
+.time {
+  font-weight: 600;
+}
