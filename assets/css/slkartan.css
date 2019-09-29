@@ -400,3 +400,15 @@ ul li {
 .time {
   font-weight: 600;
 }
+
+.lably{
+  vertical-align: text-top;
+}
+
+.arrow{
+  margin-left: 10px;
+  margin-right: 10px;
+  font-size: 21px;
+  vertical-align: middle;
+  line-height: 0px;
+}
