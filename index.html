@@ -531,7 +531,7 @@
         // Reset list,
         $("#posfound").html('');
 
-        var backend_url   = "https://backend.slkartan.se/ret_nearest_station.php";
+        var backend_url   = "https://backend.slkartan.se/php/ret_nearest_station.php";
         var real_position = $("#where_are_you").val();
 
         // To debug real locations vs returned location,
@@ -585,7 +585,7 @@
         // Reset list,
         $("#posfound").html('');
 
-        var backend_url   = "https://backend.slkartan.se/ret_quickest_path.php";
+        var backend_url   = "https://backend.slkartan.se/php/ret_quickest_path.php";
 
         // Old school, classic ajax request,
         var epoch_ajax_start = (new Date).getTime();
